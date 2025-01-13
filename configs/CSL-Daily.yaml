@@ -1,0 +1,3 @@
+dataset_root: /root/data1/Data/csl-daily
+gloss:
+  gloss2id_file: ./preprocess/CSL-Daily/gloss2ids.pkl

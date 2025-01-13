@@ -1,0 +1,4 @@
+dataset_root: "/root/data1/Data/PHOENIX-2014-T-release-v3/PHOENIX-2014-T/"
+gloss:
+  gloss2id_file: ./preprocess/phoenix2014-T/gloss2ids.pkl
+  lower_case: False

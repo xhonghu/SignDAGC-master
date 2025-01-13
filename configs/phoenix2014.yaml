@@ -1,0 +1,4 @@
+dataset_root: /root/data1/Data/phoenix2014-release/phoenix-2014-multisigner 
+gloss:
+  gloss2id_file: ./preprocess/phoenix2014/gloss2ids.pkl
+  lower_case: False

@@ -1,0 +1,52 @@
+feeder: dataloader_video.BaseFeeder
+phase: train
+dataset: CSL-Daily
+# phoenix2014-T
+# CSL-Daily
+# phoenix2014
+
+work_dir: ./work_dirt/
+batch_size: 4
+random_seed: 0 
+test_batch_size: 4
+num_worker: 20
+device: 0
+log_interval: 10000
+eval_interval: 1
+save_interval: 10
+ 
+loss_weights:
+  SeqCTC: 1.0 
+  ConvCTC: 1.0
+  Dist: 25.0
+  Cu: 0.0005
+  Cp: 0.0005
+load_weights:  False
+load_checkpoints:  False
+optimizer_args:
+  optimizer: Adam
+  learning_rate:
+    base_lr: 1.0e-04
+  step: [10, 30]
+  learning_ratio: 1
+  scheduler: consine   #ScheaL #consine
+  weight_decay: 0.0001
+  start_epoch: 0
+  num_epoch: 50 #50
+  nesterov: False
+
+feeder_args:
+  mode: 'train'
+  drop_ratio: 1.0
+  frame_interval: 1
+  image_scale: 1.0  # 0-1 represents ratio, >1 represents absolute value
+  input_size: 224
+
+model: slr_network.SLRModel
+decode_mode: beam
+model_args:
+  c2d_type: resnet34 # resnet18  resnet34
+  conv_type: 2
+  use_bn: 1 
+  share_classifier: True
+  weight_norm: True

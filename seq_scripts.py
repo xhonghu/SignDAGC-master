@@ -73,8 +73,9 @@ def seq_eval(cfg, loader, model, device, mode, epoch, work_dir, recoder, evaluat
         label_lgt = device.data_to_device(data[3])
         info = [d['fileid'] for d in data[-1]]
         gloss = [d['label'] for d in data[-1]]
+        signer = [d['signer'] for d in data[-1]]
         with torch.no_grad():
-            ret_dict = model(vid, vid_lgt, label=label, label_lgt=label_lgt)
+            ret_dict = model(vid, vid_lgt, label=label, label_lgt=label_lgt,signer=signer)
             for inf, conv_sents, recognized_sents, gl in zip(info, ret_dict['conv_sents'], ret_dict['recognized_sents'], gloss):
                 results[inf]['conv_sents'] = conv_sents
                 results[inf]['recognized_sents'] = recognized_sents

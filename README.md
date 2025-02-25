@@ -16,23 +16,33 @@
 
 Download datasets and extract them, no further data preprocessing needed.
 
-## Weights
+# SLR
+
+### Weights
 
 Here we provide the performance of the model and its corresponding weights.
 
 | Dataset    | Backbone | Dev WER | Test WER | Pretrained model                                                                                                          |
 | ---------- | -------- | ------- | -------- | ------------------------------------------------------------------------------------------------------------------------- |
-| Phoenix14T | Resnet34 | 15.96   | 18.48    | [[Google Drive]](https://drive.google.com/drive/folders/1KkdhPYucujssTIRzGKbgvbVXB18VEoLj)                                   |
-| Phoenix14  | Resnet34 | 17.00   | 17.76    | [[Google Drive]](https://drive.google.com/drive/folders/1bR6MI6SY3OExFYtX_luYPFApUm4Qs4Vj)                                   |
-| CSL-Daily  | Resnet34 | 26.33   | 25.86    | [[Google Drive]](https://drive.google.com/drive/folders/1A2_ZWIYVuWoXx8Tak55FSvUqE38V_aCE?dmr=1&ec=wgc-drive-globalnav-goto) |
+| Phoenix14  | Resnet34 | 17.00   | 17.76    | [[Google Drive]](https://drive.google.com/drive/folders/1GIRjSSunMGwgOp8JqlK3x7ERct4nv5tf?dmr=1&ec=wgc-drive-globalnav-goto) |
+| Phoenix14T | Resnet34 | 15.96   | 18.48    | [[Google Drive]](https://drive.google.com/drive/folders/102_9th1pHyiv698qx6lznP7PMX07nIY3?dmr=1&ec=wgc-drive-globalnav-goto) |
+| CSL-Daily  | Resnet34 | 25.14   | 23.89    | [[Google Drive]](https://drive.google.com/drive/folders/1xTAaS70KTHLajONwEJSL4npcWXguulwp?dmr=1&ec=wgc-drive-globalnav-goto) |
 
-## Evaluate
+### Evaluate
 
 To evaluate the pretrained model, choose the dataset from phoenix2014/phoenix2014-T/CSL/CSL-Daily in line 3 in ./config/baseline.yaml first, and run the command below：
 
 `python main.py --load-weights path_to_weight.pt --phase test`
 
-## Training
+```
+python main.py --load-weights ./phoenix2014-T/best_model.pt --phase test
+
+python main.py --load-weights ./phoenix2014/best_model.pt --phase test
+
+python main.py --load-weights ./csl-daily/best_model.pt --phase test
+```
+
+### Training
 
 To Training the SignDAGC model, choose the dataset from phoenix2014/phoenix2014-T/CSL/CSL-Daily in line 3 in ./config/baseline.yaml first, and run the command below：
 
@@ -42,6 +52,12 @@ Multi-machine training (In fact, the results of the Multi-machine run are not go
 
 `python -m torch.distributed.launch --nproc_per_node=2 main.py --device 0,1`
 
-## Acknowledgments
+### Acknowledgments
 
 Our code is based on [SignGraph](https://github.com/gswycf/SignGraph) and [GreedyViG](https://github.com/SLDGroup/GreedyViG).
+
+
+
+# SLT
+
+The code for the sign language translation part is visible [SignDAGC-SLT](https://github.com/xhonghu/SignDAGC_SLT-master).

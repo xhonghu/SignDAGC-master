@@ -10,6 +10,7 @@ import torchvision.models as models
 from modules.criterions import SeqKD
 from modules import BiLSTMLayer, TemporalConv
 import modules.resnet as resnet
+import pickle
 
 class Identity(nn.Module):
     def __init__(self):
@@ -61,6 +62,8 @@ class SLRModel(nn.Module):
             self.conv1d.fc = nn.Linear(hidden_size, self.num_classes)
         if share_classifier:
             self.conv1d.fc = self.classifier
+        with open('preprocess/phoenix2014-T/phoenix2014-T.pkl', 'rb') as f:
+            self.index_dict = pickle.load(f)
 
     def backward_hook(self, module, grad_input, grad_output):
         for g in grad_input:
@@ -76,7 +79,7 @@ class SLRModel(nn.Module):
                        for idx, lgt in enumerate(len_x)])
         return x
 
-    def forward(self, x, len_x, label=None, label_lgt=None):
+    def forward(self, x, len_x, label=None, label_lgt=None, signer=None):
 
         if len(x.shape) == 5:
             # videos
@@ -90,6 +93,12 @@ class SLRModel(nn.Module):
         lgt = conv1d_outputs['feat_len'].cpu()
         tm_outputs = self.temporal_model(x, lgt)
         outputs = self.classifier(tm_outputs['predictions'])
+        # for i in range(batch):
+        #     indices = self.index_dict[signer[i]]
+        #     mask = torch.zeros(outputs.shape[-1], dtype=torch.bool)
+        #     mask[indices] = True
+        #     outputs[:, i, ~mask] = -float('inf')
+        #     conv1d_outputs['conv_logits'][:, i, ~mask] = -float('inf')
         pred = None if self.training \
             else self.decoder.decode(outputs, lgt, batch_first=False, probs=False)
         conv_pred = None if self.training \

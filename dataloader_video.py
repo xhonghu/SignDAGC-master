@@ -43,7 +43,7 @@ class BaseFeeder(data.Dataset):
         if self.dataset=='phoenix2014-T':
             fi['label'] = clean_phoenix_2014_trans(fi['label'])
         if self.dataset=='CSL-Daily':
-            fi['label'] = clean_csl(fi['label'])    
+            fi['label'] = clean_csl(fi['label']).lower()    # for APP PPT ...,gloss2id is app ppt
         gloss = fi['label']
         return input_data, gloss, fi['fileid'] ,fi
 

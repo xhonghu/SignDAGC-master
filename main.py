@@ -71,6 +71,8 @@ class Processor():
                 seq_train(self.data_loader['train'], self.model, self.optimizer,
                           self.device, epoch, self.recoder)
                 if is_main_process():
+                    model_path = "{}/checkpoint.pt".format(self.arg.work_dir)
+                    self.save_model(epoch, model_path)
                     dev_wer = seq_eval(self.arg, self.data_loader['dev'], self.model, self.device,
                                         'dev', epoch, self.arg.work_dir, self.recoder, self.arg.evaluate_tool)
                     test_wer = seq_eval(self.arg, self.data_loader['test'], self.model, self.device,

@@ -39,7 +39,8 @@ class BaseFeeder(data.Dataset):
         input_data, fi = self.read_video(idx)
         input_data = self.normalize(input_data)
         if self.dataset=='phoenix2014':
-            fi['label'] = clean_phoenix_2014(fi['label'])
+            fi['label'] = fi['label']
+            # fi['label'] = clean_phoenix_2014(fi['label'])
         if self.dataset=='phoenix2014-T':
             fi['label'] = clean_phoenix_2014_trans(fi['label'])
         if self.dataset=='CSL-Daily':

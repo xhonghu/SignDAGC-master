@@ -81,7 +81,7 @@ class Processor():
                     self.recoder.print_log("Test WER: {:05.2f}% Test del {:05.2f}% Test ins {:05.2f}%".format(test_wer['wer'], test_wer['del'],
                                                                                         test_wer['ins']))
 
-                    if dev_wer["wer"] + test_wer['wer'] < best_dev["wer"] + best_tes["wer"]:
+                    if dev_wer["wer"]  < best_dev["wer"]:
                         best_dev = dev_wer
                         best_tes = test_wer
                         best_epoch = epoch
